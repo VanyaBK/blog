@@ -1,36 +1,42 @@
 ---
-title: What is proper Pre-training for Multilingual Machine Translation?
-author:  Xiao Pan
-date: 2020-12-31
+title: Lego-MT: Learning Detachable Models for Massively Multilingual Machine Translation
+author:  Fei Yuan
+date: 2023-07-19
 tag:
- - Multilingual MT
- - Pre-training
- - Random Aligned Substitution
- - Zero-shot Translation
- - mRASP
+ - Massively Multilingual MT
+ - Unified Space
+ - Low Resource MT
+ - Detachable
+ - Inference Efficiency
 category:
  - MT
 ---
 
-​	In 1920, the great philosopher Bertrand Russell visited China, accompanied by Yuen Ren Chao, a Chinese-American linguist. Mr. Chao was a naturally gifted polyglot. At that time, he could already speak Baoding dialect, Wu dialect, Fuzhou dialect, Nanjing dialect, and English. He accompanied Russell from Shanghai to Changsha by ship. During the trip, he was learning Changsha dialect from Yang Ruiliu, an economist on the same ship. When the ship docked in Changsha, Yuen Ren Chao was already able to translate Russell's speeches and slang into Changsha dialect. Can our neural network  become a model like "Yuen Ren Chao" on machine translation? That is, to create a unified model with multilingual abilities, and when encountering new languages, the model could quickly adapt to translating new ones after training with a small amount of data.
+​	
 
 <!-- more -->
 
-Paper：<https://arxiv.org/abs/2010.03142>
+Paper：<https://arxiv.org/pdf/2212.10551.pdf>
 
-Github: <https://github.com/linzehui/mRASP>
+Github: <https://github.com/CONE-MT/Lego-MT>
 
 
 ## Introduction
-![image1](./zhao.png)
 
-A recent work mRASP, which appeared at the 2020 Conference of Empirical Methods in Natural Language Processing, aims to provide a Yuen Ren Chao polyglot model for machine translation [1]. The key idea is to pre-train a model with multilingual capability, and yield any specific translation model by fine-tuning on the corresponding parallel corpus. The model trained with mRASP technique in 32 languages has achieved a comprehensive and significant improvement in 47 translation test sets.
 
-Unlike previous translation models, mRASP has established a successful paradigm of pre-training and fine-tuning for machine translation. This is similar to BERT's role on NLU tasks. There were already pretrained models for natural language generation (GPT). However, they are limited in extending their capabilities on multilingual machine translation tasks.  The central problem that mRASP wants to solve is, can we develop a unified pre-trained translation model and extend it by fine-tuning on a small amount of parallel corpus on any specific language pair to obtain any-language translation model?
+The paper "Lego-MT: Learning Detachable Models for Massively Multilingual Machine Translation" proposes a new approach to training models for machine translation across many languages. The existing multilingual machine translation models encounter mainly two challenges, parameter interference and inefficient inference from large models. To address these issues, the following key ideas are proposed :
 
-mRASP is designed for machine translation tasks. It has three advantages. First, the translation quality can be consistently improved regardless of the amount of parallel bilingual corpus. In rich-resource directions, such as the standard English-French wmt2014 translation task, which already has 40 million parallel sentence pairs for training, mRASP can still significantly improve the quality, reaching a BLEU score of 44.3. In low-resource directions, mRASP performs surprisingly well. In extreme cases, when we have only 10,000 training data for fine-tuning, a reasonable translation model can be obtained through 10-minute fine-tuning. Second, It breaks the limit on languages, for any direction, the mRASP can be directly used to fine-tune to get a single-directional translation model. Finally, it is resource-efficient. Some other pre-training paradigms are trained on hundreds of GPUs for a couple of weeks. By contrast, mRASP only needs 8 GPUs for a week. In short, mRASP can be understood as a lightweight BERT in the field of machine translation. When you need a machine translation model, you should try it, it may surprise you! The authors also said that this technology has been used on the Volctrans system developed by ByteDance and has been tested in actual business practice. The authors have kindly published the research data, codes and pre-trained models.
+- Using a multi-branch architecture where each language or group of languages has its own encoder and decoder modules. This avoids interference between parameters for different languages. 
 
-Next, we will introduce and analyze mRASP from three aspects: 1) the challenges of machine translation pre-training; 2) the motivation and methods of mRASP; 3) the performance and analysis of mRASP.
+- A novel training recipe involving language-centric data grouping and triple training flows (Mix-Flow, Enc-Flow, Dec-Flow) which allows efficient training by only loading certain modules into GPU memory at a time.
+
+- Introducing a "unified space" concept for mapping representations of different languages into a common space to enable transfer learning. 
+
+This work constructs a new massive multilingual dataset covering 433 languages and 1.3 billion parallel sentences, greatly extending the scale compared to prior work. The detachable and modular nature of the model named Lego-MT allows flexible combination of different modules at inference time. Experiments demonstrate significant gains of 3.2 spBLEU over strong baselines like M2M-100 of similar parameter size, with particular benefits for low-resource languages. The training recipe also provides major speedups over conventional multi-branch training.
+
+Overall, this introduces an efficient and effective approach to scaling up multilingual neural machine translation to hundreds of languages. The innovations in model architecture, training procedure, and dataset creation help address key challenges in the domain of massively multilingual machine translation.
+
+Next, we will introduce and analyze Lego-MT from three aspects: 1) the challenges of massively multilingual machine translation; 2) the motivation and methods of Lego-MT; 3) the performance and analysis of Lego-MT.
 
 ## Challenges in machine translation pre-training
 At present, the vast majority of AI tasks are basically statistical learning based on data, and the performance of the model depends on the quality and quantity of data to a large extent. It has become a new successful paradigm for NLP to use a large amount of cheap data to pre-train the model, then fine-tune with a small amount of annotation data in specific scenarios. For example, pre-trained on large-scale unlabeled text, BERT[2] can achieve good results on 11 NLU tasks after fine-tuning on limited annotation data. However, in multilingual machine translation, the paradigm of pre-training and fine-tuning has not yet achieved general success. The training objectives  of previous NLP pre-training methods such as BERT and GPT[5] have a large gap with machine translation, thus are not easy to use directly. mRASP proposed a new idea: it uses massive bilingual parallel corpus accumulated in multiple languages to jointly train a unified model, and then fine-tune based on it. Therefore the pre-training and fine-tuning objectives are as close as possible, so as to give greater play to the role of the pre-training model.
