@@ -63,12 +63,14 @@ The key insights to the methodology used in this paper are as follows:
  - Data Grouping: The multilingual training data is divided into language-centric groups, so each group contains data related to one core language (e.g. English, Chinese), such that only those specific branches need to be loaded into GPU memory
  - Language-Specific Branches: Separate encoder and decoder modules are created for each core language. Additionally, one multilingual encoder and decoder module is added to facilitate cross-lingual learning. This modular design mitigates interference across languages.
  - Sequential Training: The language-centric groups are trained sequentially. For each group, only the data and modules related to that language are loaded into GPU memory. This eliminates wasteful computation and speeds up training.
- - Triple Training Flows: Within each language-centric training phase, three flows are used -
-  - Mix-Flow: Trains Multilingual encoder and Multilingual decoder on all the data
-  - Enc-Flow: Trains Language-specific encoder on data of that language
-  - Dec-Flow: Trains Language-specific decoder on data of that language
+ - Triple Training Flows: As shown in the diagram below, within each language-centric training phase, three flows are used -
+   - Mix-Flow: Trains Multilingual encoder and Multilingual decoder on all the data
+   - Enc-Flow: Trains Language-specific encoder on data of that language
+   - Dec-Flow: Trains Language-specific decoder on data of that language
  - Two-Stage Training: Enc-Flow and Mix-Flow are trained jointly in stage 1. Dec-Flow is trained separately in stage 2 after initializing with stage 1 model. This two-stage approach prevents catastrophic forgetting in the multilingual encoder.
  - Unified Representations: The triple training flows facilitates the model to map inputs and outputs to a shared representation space across languages. This results in a unified multilingual model.
+
+At the inference stage, multilingual encoder/language-specific encoder of the source language is used for encoding. Similarly, for decoding, the multilingual decoder/language-specific decoder of the target language is used to infer from the Lego-MT model, as shown in the figure below.
 
 ![image3](./lego-mt-training.png)
 
