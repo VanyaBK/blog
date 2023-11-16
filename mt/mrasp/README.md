@@ -81,17 +81,17 @@ Overall, the paper demonstrates an effective and efficient approach to scale up 
 
 ## Baselines and Evaluation
 
-LegoMT is trained using the OPUS parallel corpus [CITE(https://opus.nlpl.eu/)], the authors use 7 core languages (En, Zh, De, Ar, Ne, Az, Ceb) and 433 other languages. 
+LegoMT is trained using the OPUS parallel corpus(https://opus.nlpl.eu/), the authors use 7 core languages (En, Zh, De, Ar, Ne, Az, Ceb) and 433 other languages. 
 
-For evaluation the authors use Flores-101 [CITE (Goyal et al 2021)] human-written translation set on languages that align with M2M-100 [CITE (Fan et al., 2021)] model. The paper evaluates all baselines and Lego-MT on this exhaustive set of 85 x 7 directions. 
+For evaluation the authors use Flores-101 [5] human-written translation set on languages that align with M2M-100 [6] model. The paper evaluates all baselines and Lego-MT on this exhaustive set of 85 x 7 directions. 
 
-You can find the baselines in the table below [CITE table name]. Flores-175M is baselines released with Flores-101 dataset and M2M-100 baselines are different variants of Transformer released by [CITE (Fan et al., 2021)]
+You can find the baselines in the table below. Flores-175M is baselines released with Flores-101 dataset and M2M-100 baselines are different variants of Transformer released by [6]
 
 ## Results
 
 ![image4](./main_results_legomt.png)
 
-Some key findings that we can infer from the evaluation [CITE table name] are as follows:
+Some key findings that we can infer from the evaluatio are as follows:
 
 1. **Lego-MT achieves better performance overall as well as language wise**: Lego-MT uses 0.1x parameters compared to M2M-100-12B and still achieves better performance especially in the many-to-one setting (5.0 spBLEU). Lego-MT performs better than both M2M-100-1.2B and M2M-100-1.2B+Multilingual Fine-tuning which is trained with the same data corroborating the effectiveness of detachable and efficient training.
 
@@ -109,7 +109,7 @@ Further, LegoMT is also more Efficient than the baselines
 
 #### Flow of training
 
-As mentioned earlier, there are 3 flows of training - Enc Flow, Dec Flow and Mix Flow. The paper performs ablation for X → Zh and Zh→ X, where X contains 7 languages split across high and low-resource category. We notice in figure [CITE figure] that the performance drop in BLEU when jointly training Dec-Flow and Mix-Flow is quite high. This can be attributed to the fact that Dec-Flow training can vastly change the distribution of the multilingual decoder - making it essential to precede Dec-Flow with Mix-Flow. Further jointly training Enc-Flow and Mix-Flow has the most improvement
+As mentioned earlier, there are 3 flows of training - Enc Flow, Dec Flow and Mix Flow. The paper performs ablation for X → Zh and Zh→ X, where X contains 7 languages split across high and low-resource category. We notice in the figure below that the performance drop in BLEU when jointly training Dec-Flow and Mix-Flow is quite high. This can be attributed to the fact that Dec-Flow training can vastly change the distribution of the multilingual decoder - making it essential to precede Dec-Flow with Mix-Flow. Further jointly training Enc-Flow and Mix-Flow has the most improvement
 
 <p align="center">
   <img src="./flow_results_legomt.png">
@@ -140,4 +140,14 @@ To ensure the Unified space is consistent, the paper performed experiments for t
 LegoMT presents an efficient detachable training recipe in the space of multilingual machine translation with a single model. In the process, the authors curate a MNMT dataset covering 433 languages. Results on Flores-101 indicate how LegoMT surpasses performance over strong baselines like M2M-100-1.2B
 
 ## References
+[1]Zhu, Yaoming, et al. "Counter-interference adapter for multilingual machine translation." In Findings of the Association for Computational Linguistics: EMNLP (2021)
 
+[2]Jacobs, Robert, et al. Adaptive mixtures of local experts. Neural computation, 3(1):79–87.
+
+[3]Costa-jussà, Marta, et al. No language left behind: Scaling human-centered machine translation.(2022) CoRR, abs/2207.04672.
+
+[4]Du, Nan, et al. Efficient scaling of language models with mixture-of-experts. In International Conference on Machine Learning, pages 5547–5569. PMLR
+
+[5] Naman Goyal, Cynthia Gao, Vishrav Chaudhary, Peng-Jen Chen, Guillaume Wenzek, Da Ju, Sanjana Krishnan, Marc'Aurelio Ranzato, Francisco Guzmán, Angela Fan: The FLORES-101 Evaluation Benchmark for Low-Resource and Multilingual Machine Translation. CoRR abs/2106.03193 (2021)
+
+[6] Angela Fan, Shruti Bhosale, Holger Schwenk, Zhiyi Ma, Ahmed El-Kishky, Siddharth Goyal, Mandeep Baines, Onur Celebi, Guillaume Wenzek, Vishrav Chaudhary, et al. 2021. Beyond english-centric multilingual machine translation. J. Mach. Learn. Res., 22(107):1–48.
