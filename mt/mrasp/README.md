@@ -239,23 +239,3 @@ Back to the beginning of the article, Mr. Chao, a language genius, has mastered 
 [3]Costa-jussà, Marta, et al. No language left behind: Scaling human-centered machine translation.(2022) CoRR, abs/2207.04672.
 
 [4]Du, Nan, et al. Efficient scaling of language models with mixture-of-experts. In International Conference on Machine Learning, pages 5547–5569. PMLR
-
-[1] Lin, Zehui, et al. "Pre-training Multilingual Neural Machine Translation by Leveraging Alignment Information." In the Conference on Empirical Methods in Natural Language Processing  (2020).
-
-[2] Devlin, Jacob, et al. "Bert: Pre-training of deep bidirectional transformers for language understanding." NAACL-HLT (1) 2019: 4171-4186.
-
-[3] Thomas, Reed, and Callie Mady. "Teaching for transfer: Insights from theory and practices in primary-level French-second-language classrooms." McGill Journal of Education/Revue des sciences de l'éducation de McGill 49.2 (2014): 399-416.
-
-[4] Johnson, Melvin, et al. "Google’s multilingual neural machine translation system: Enabling zero-shot translation." Transactions of the Association for Computational Linguistics 5 (2017): 339-351.
-
-[5] Radford, Alec, et al. "Improving language understanding by generative pre-training." (2018): 12.
-
-[6] Vaswani, Ashish, et al. "Attention is all you need." Advances in neural information processing systems. 2017.
-
-[7] Song, Kaitao, et al. "MASS: Masked Sequence to Sequence Pre-training for Language Generation." ICML. 2019.
-
-[8] Lewis, Mike, et al. "Bart: Denoising sequence-to-sequence pre-training for natural language generation, translation, and comprehension."  ACL 2020: 7871-7880
-
-[9] Liu, Yinhan, et al. "Multilingual denoising pre-training for neural machine translation." TACL.2020
-
-[10] Yang, et al. "Towards Making the Most of BERT in Neural Machine Translation"  AAAI.2020
