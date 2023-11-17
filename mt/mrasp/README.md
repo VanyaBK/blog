@@ -74,7 +74,7 @@ At the inference stage, multilingual encoder/language-specific encoder of the so
 
 ![image3](./lego-mt-training.png)
 
-The experiments on Flores-101 translation benchmark show Lego-MT outperforms strong baselines. It achieves an average gain of 3.2 BLEU over M2M-100-1.2B baseline and even surpasses M2M-100-12B on many-to-one translation. The proposed training method brings a 28X speedup over conventional multi-way training. 
+The experiments on Flores-101 translation benchmark show Lego-MT outperforms strong baselines. It achieves an average gain of 3.2 BLEU over M2M-100-1.2B baseline and even surpasses M2M-100-12B on many-to-one translation. The proposed training method brings a 28.2X speedup over conventional multi-way training. 
 
 Overall, the paper demonstrates an effective and efficient approach to scale up multilingual NMT while mitigating key issues faced by monolithic models.
 
