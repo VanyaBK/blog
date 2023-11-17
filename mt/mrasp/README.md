@@ -103,7 +103,7 @@ Further, LegoMT is also more Efficient than the baselines
 
 1. **Efficient Training:** Each encoder and decoder branch in LegoMT is initialized with 418M M2M-100 model, each instance only requires loading the language pair specific encoder and decoder. While M2M-100-1.2B has 1.2B parameters and hence cannot load as much tokens as LegoMT in a single forward step. The authors show that empirically they observed that LegoMT was 28.2x faster
    
-2. **Reasonable Training cost:** Even though Lego-MT uses 8 encoders and 8 decoders, for each instance, the first stage only updates LG encoder and multilingual encoder-decoder and the second stage updates LG decoder. So effectively the cost is only about 2 times of the cost of normal multilingual fine-tuning in case of M2M-1.2B
+2. **Reasonable Training cost:** Even though Lego-MT uses 8 encoders and 8 decoders, for each instance, the first stage only updates LG(language) encoder and multilingual encoder-decoder and the second stage updates LG decoder. So effectively the cost is only about 2 times of the cost of normal multilingual fine-tuning in case of M2M-1.2B
 
 ## Ablations and Analysis
 
