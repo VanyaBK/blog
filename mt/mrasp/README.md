@@ -120,7 +120,7 @@ As mentioned earlier, there are 3 flows of training - Enc Flow, Dec Flow and Mix
 During inference, there are 3 possible paths of inference M-encoder + M-decoder, E-encoder + M-decoder, M-encoder + D-decoder. The below image shows that low-resource settings prefer M-Flow from LG to X, as it allows them to learn from similar languages instead of low-resource E-flow. For LG in Zh, En and De, we see they prefer Dec-Flow for X → LG owing to less interference in decoder side.
 
 <p align="center">
-  <img src="./inference_path_legomt.png">
+  <img src="./inference_path_legomt.pdf">
 </p>
 
 #### Learning alignment between different branches
