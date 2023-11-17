@@ -1,5 +1,5 @@
 ---
-title: Lego-MT: Learning Detachable Models for Massively Multilingual Machine Translation
+title: Lego-MT - Learning Detachable Models for Massively Multilingual Machine Translation
 author:  Fei Yuan
 date: 2023-07-19
 tag:
